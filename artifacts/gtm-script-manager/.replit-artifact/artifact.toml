@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "GTM Script Manager"
+version = "1.0.0"
+id = "artifacts/gtm-script-manager"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25627
+
+[services.development]
+run = "pnpm --filter @workspace/gtm-script-manager run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/gtm-script-manager", "run", "build" ]
+publicDir = "artifacts/gtm-script-manager/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25627"
+BASE_PATH = "/"
